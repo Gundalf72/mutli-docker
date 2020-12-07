@@ -3,24 +3,24 @@ services:
   - docker
 
 before_install:
-  - docker build -t gundalf72/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t gundalf/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true gundalf72/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t gundalf72/multi-client ./client
-  - docker build -t gundalf72/multi-nginx ./nginx
-  - docker build -t gundalf72/multi-server ./server
-  - docker build -t gundalf72/multi-worker ./worker
+  - docker build -t gundalf/multi-client ./client
+  - docker build -t gundalf/multi-nginx ./nginx
+  - docker build -t gundalf/multi-server ./server
+  - docker build -t gundalf/multi-worker ./worker
 
 # Log in to the docker cli
 # Add env variable - id DOCKER_ID and DOCKER_PASSWORD
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push gundalf72/multi-client
-  - docker push gundalf72/multi-nginx 
-  - docker push gundalf72/multi-server
-  - docker push gundalf72/multi-worker
+  - docker push gundalf/multi-client
+  - docker push gundalf/multi-nginx 
+  - docker push gundalf/multi-server
+  - docker push gundalf/multi-worker
 
 
 # Take the images and push them to dockerhuv
